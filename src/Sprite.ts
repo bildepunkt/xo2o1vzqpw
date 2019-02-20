@@ -31,13 +31,13 @@ export class Sprite {
     this.privates.mapOriginal = this.privates.map;
   }
 
-  public cloneMap ():SpriteMap {
-    return this.privates.map.map((row:number[]) => row.map(index => index));
-  }
+  // public cloneMap ():SpriteMap {
+  //   return this.privates.map.map((row:number[]) => row.map(index => index));
+  // }
 
-  public cloneMapOriginal ():SpriteMap {
-    return this.privates.mapOriginal.map((row:number[]) => row.map(index => index));
-  }
+  // public cloneMapOriginal ():SpriteMap {
+  //   return this.privates.mapOriginal.map((row:number[]) => row.map(index => index));
+  // }
 
   public get map ():SpriteMap {
     return this.privates.map;
