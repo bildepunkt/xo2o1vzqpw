@@ -62,4 +62,34 @@ describe("Sprite", () => {
       ]);
     });
   });
+
+  describe("rotation", () => {
+    it("rotates the array 90 clock-wise", () => {
+      const sprite = new Sprite({ map });
+      sprite.rotation = 90;
+      expect(sprite.map).toEqual([
+        [7, 4, 1],
+        [8, 5, 2],
+        [9, 6, 3]
+      ]);
+    });
+    it("rotates the array 180 degrees clock-wise", () => {
+      const sprite = new Sprite({ map });
+      sprite.rotation = 180;
+      expect(sprite.map).toEqual([
+        [9, 8, 7],
+        [6, 5, 4],
+        [3, 2, 1]
+      ]);
+    });
+    it("rotates the array 270 degrees clock-wise", () => {
+      const sprite = new Sprite({ map });
+      sprite.rotation = 270;
+      expect(sprite.map).toEqual([
+        [3, 6, 9],
+        [2, 5, 8],
+        [1, 4, 7]
+      ]);
+    });
+  });
 });

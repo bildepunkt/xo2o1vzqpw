@@ -78,25 +78,38 @@ export class Sprite {
 
   public set rotation (value:SpriteRotation) {
     if (value !== this.privates.rotation) {
-      const mapOriginal = this.cloneMapOriginal();
-      const rotatedMap = [];
-
+      const map = this.privates.map;
       switch (value) {
         case 0:
           // do nothing
           break;
         case 90:
-          // for (let y = 0; y < mapOriginal.length; y++) {
-          //   for (let x = 0; x < mapOriginal[y].length; x++) {
-          //     //
-          //   }
-          // }
+          const mapRotated90:SpriteMap = [];
+          for (let x = 0; x < map[0].length; x++) {
+            let row:number[] = [];
+            for (let y = 0; y < map.length; y++) {
+              row.push(map[y][x]);
+            }
+            mapRotated90.push(row.reverse());
+          }
+          this.privates.map = mapRotated90;
           break;
         case 180:
-          //
+          for (let row of map) {
+            row = row.reverse();
+          }
+          this.privates.map = map.reverse();
           break;
         case 270:
-          //
+          const mapRotated270:SpriteMap = [];
+          for (let x = 0; x < map[0].length; x++) {
+            let row:number[] = [];
+            for (let y = 0; y < map.length; y++) {
+              row.push(map[y][x]);
+            }
+            mapRotated270.push(row);
+          }
+          this.privates.map = mapRotated270.reverse();
           break;
       }
       this.privates.rotation = value;
