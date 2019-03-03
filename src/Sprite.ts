@@ -28,16 +28,16 @@ export class Sprite {
 
   constructor (opts:SpriteOpts = {}) {
     this.privates = Object.assign({}, Sprite.defaults, opts);
-    this.privates.mapOriginal = this.privates.map;
+    this.privates.mapOriginal = this.cloneMap();
   }
 
-  // public cloneMap ():SpriteMap {
-  //   return this.privates.map.map((row:number[]) => row.map(index => index));
-  // }
+  public cloneMap ():SpriteMap {
+    return this.privates.map.map((row:number[]) => row.map(index => index));
+  }
 
-  // public cloneMapOriginal ():SpriteMap {
-  //   return this.privates.mapOriginal.map((row:number[]) => row.map(index => index));
-  // }
+  public cloneMapOriginal ():SpriteMap {
+    return this.privates.mapOriginal.map((row:number[]) => row.map(index => index));
+  }
 
   public get map ():SpriteMap {
     return this.privates.map;
@@ -78,10 +78,18 @@ export class Sprite {
 
   public set rotation (value:SpriteRotation) {
     if (value !== this.privates.rotation) {
-      const map = this.privates.map;
+      let map = this.cloneMapOriginal();
+      if (this.privates.flipX) {
+        for (let row of map) {
+          row = row.reverse();
+        }
+      }
+      if (this.privates.flipY) {
+        map = map.reverse();
+      }
       switch (value) {
         case 0:
-          // do nothing
+          this.privates.map = map;
           break;
         case 90:
           const mapRotated90:SpriteMap = [];
