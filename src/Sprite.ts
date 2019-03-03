@@ -1,4 +1,6 @@
-export type SpriteMap = Array<number[]>;
+import { Colour } from "./Color";
+
+export type SpriteMap = Array<Colour[]>;
 export type SpriteRotation = 0 | 90 | 180 | 270;
 
 export interface SpriteOpts {
@@ -32,11 +34,11 @@ export class Sprite {
   }
 
   public cloneMap ():SpriteMap {
-    return this.privates.map.map((row:number[]) => row.map(index => index));
+    return this.privates.map.map((row:Colour[]) => row.map(index => index));
   }
 
   public cloneMapOriginal ():SpriteMap {
-    return this.privates.mapOriginal.map((row:number[]) => row.map(index => index));
+    return this.privates.mapOriginal.map((row:Colour[]) => row.map(index => index));
   }
 
   public get map ():SpriteMap {
@@ -94,7 +96,7 @@ export class Sprite {
         case 90:
           const mapRotated90:SpriteMap = [];
           for (let x = 0; x < map[0].length; x++) {
-            let row:number[] = [];
+            let row:Colour[] = [];
             for (let y = 0; y < map.length; y++) {
               row.push(map[y][x]);
             }
@@ -111,7 +113,7 @@ export class Sprite {
         case 270:
           const mapRotated270:SpriteMap = [];
           for (let x = 0; x < map[0].length; x++) {
-            let row:number[] = [];
+            let row:Colour[] = [];
             for (let y = 0; y < map.length; y++) {
               row.push(map[y][x]);
             }
