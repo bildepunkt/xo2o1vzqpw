@@ -1,5 +1,5 @@
-import { Sprite, SpriteMap } from "../src/Sprite";
-import { Colour } from "../src/Color";
+import Sprite, { SpriteMap } from "../src/Sprite";
+import Colour from "../src/Colour";
 
 describe("Sprite", () => {
   let map:SpriteMap;

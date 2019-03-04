@@ -1,5 +1,5 @@
-import { Sprite } from "../../src/Sprite";
-import { Colour } from "../../src/Color";
+import Sprite from "../../src/Sprite";
+import Colour from "../../src/Colour";
 
 export const renderBixel = (context:CanvasRenderingContext2D, x:number, y:number, colourValue:string, bpp:number):void => {
   context.fillStyle = colourValue;

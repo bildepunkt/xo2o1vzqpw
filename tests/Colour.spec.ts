@@ -1,4 +1,4 @@
-import { Colour } from "../src/Color";
+import Colour from "../src/Colour";
 
 describe("Colour", () => {
   describe("constructor()", () => {

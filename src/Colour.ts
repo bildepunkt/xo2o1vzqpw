@@ -1,4 +1,4 @@
-export class Colour {
+export default class Colour {
   private r:number;
   private g:number;
   private b:number;
