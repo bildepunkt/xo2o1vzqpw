@@ -20,7 +20,7 @@ describe("Sprite", () => {
       [d, e, f],
       [g, h, i]
     ];
-  })
+  });
 
   describe("constructor()", () => {
     it("instantiates with correct defaults", () => {
