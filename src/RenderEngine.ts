@@ -1,11 +1,15 @@
 import Config from "./Config";
-import { IDOM } from "./DOM";
+import DOM from "./DOM";
 
-export default class RenderEngine {
+export interface IRenderEngine {
+  renderBixel:(x:number, y:number, colourValue:string) => void;
+}
+
+export default class RenderEngine implements IRenderEngine {
   private config:Config;
-  private dom:IDOM;
+  private dom:DOM;
 
-  constructor(config:Config, dom:IDOM) {
+  constructor(config:Config, dom:DOM) {
     this.config = config;
     this.dom = dom;
   }

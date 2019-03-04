@@ -1,20 +1,6 @@
 import Config from "./Config";
 
-export interface IDOM {
-  document: Document | any;
-  canvas: HTMLCanvasElement | any;
-  context: CanvasRenderingContext2D | any;
-  window: Window | any;
-}
-
-export class DOMMock implements IDOM {
-  public document: any;
-  public canvas: any;
-  public context: any;
-  public window: any;
-}
-
-export default class DOM implements IDOM {
+export default class DOM {
   public document: Document = document;
   public canvas: HTMLCanvasElement;
   public context: CanvasRenderingContext2D;
