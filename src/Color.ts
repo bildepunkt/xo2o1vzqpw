@@ -1,14 +1,18 @@
 export class Colour {
-  public r:number;
-  public g:number;
-  public b:number;
-  public a:number;
+  private r:number;
+  private g:number;
+  private b:number;
+  private a:number;
 
   constructor (r:number=0, g:number=0, b:number=0, a:number=1) {
     this.r = r;
     this.g = g;
     this.b = b;
     this.a = a;
+  }
+
+  public get value ():string {
+    return `rgba(${this.r}, ${this.g}, ${this.b}, ${this.a})`;
   }
 }
 
