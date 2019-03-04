@@ -1,44 +1,44 @@
 import Colour from "./Colour";
 import { IRenderEngine } from "./RenderEngine";
 
-export type SpriteMap = Array<Colour[]>;
-export type SpriteRotation = 0 | 90 | 180 | 270;
+export type TileMap = Array<Colour[]>;
+export type TileRotation = 0 | 90 | 180 | 270;
 
-export interface SpriteOpts {
+export interface TileOpts {
   flipX?:boolean;
   flipY?:boolean;
-  map?:SpriteMap;
-  rotation?:SpriteRotation;
+  map?:TileMap;
+  rotation?:TileRotation;
 }
 
-export interface SpritePrivates {
+export interface TilePrivates {
   flipX:boolean;
   flipY:boolean;
-  map:SpriteMap;
-  mapOriginal:SpriteMap;
-  rotation:SpriteRotation;
+  map:TileMap;
+  mapOriginal:TileMap;
+  rotation:TileRotation;
 }
 
-export default class Sprite {
-  private static defaults:SpritePrivates = {
+export default class Tile {
+  private static defaults:TilePrivates = {
     flipX: false,
     flipY: false,
     map: [],
     mapOriginal: [],
     rotation: 0
   };
-  private privates:SpritePrivates;
+  private privates:TilePrivates;
 
-  constructor (opts:SpriteOpts = {}) {
-    this.privates = Object.assign({}, Sprite.defaults, opts);
+  constructor (opts:TileOpts = {}) {
+    this.privates = Object.assign({}, Tile.defaults, opts);
     this.privates.mapOriginal = this.cloneMap();
   }
 
-  public cloneMap ():SpriteMap {
+  public cloneMap ():TileMap {
     return this.privates.map.map((row:Colour[]) => row.map(index => index));
   }
 
-  public cloneMapOriginal ():SpriteMap {
+  public cloneMapOriginal ():TileMap {
     return this.privates.mapOriginal.map((row:Colour[]) => row.map(index => index));
   }
 
@@ -50,7 +50,7 @@ export default class Sprite {
     }
   }
 
-  public get map ():SpriteMap {
+  public get map ():TileMap {
     return this.privates.map;
   }
 
@@ -62,11 +62,11 @@ export default class Sprite {
     return this.privates.flipY;
   }
 
-  public get rotation ():SpriteRotation {
+  public get rotation ():TileRotation {
     return this.privates.rotation;
   }
 
-  public set map (value:SpriteMap) {
+  public set map (value:TileMap) {
     this.privates.map = value;
     this.privates.mapOriginal = value;
   }
@@ -87,7 +87,7 @@ export default class Sprite {
     }
   }
 
-  public set rotation (value:SpriteRotation) {
+  public set rotation (value:TileRotation) {
     if (value !== this.privates.rotation) {
       let map = this.cloneMapOriginal();
       if (this.privates.flipX) {
@@ -103,7 +103,7 @@ export default class Sprite {
           this.privates.map = map;
           break;
         case 90:
-          const mapRotated90:SpriteMap = [];
+          const mapRotated90:TileMap = [];
           for (let x = 0; x < map[0].length; x++) {
             let row:Colour[] = [];
             for (let y = 0; y < map.length; y++) {
@@ -120,7 +120,7 @@ export default class Sprite {
           this.privates.map = map.reverse();
           break;
         case 270:
-          const mapRotated270:SpriteMap = [];
+          const mapRotated270:TileMap = [];
           for (let x = 0; x < map[0].length; x++) {
             let row:Colour[] = [];
             for (let y = 0; y < map.length; y++) {

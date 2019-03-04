@@ -1,10 +1,10 @@
 import Colour from "../src/Colour";
 import RenderEngine from "./__mocks__/RenderEngine";
-import Sprite, { SpriteMap } from "../src/Sprite";
+import Tile, { TileMap } from "../src/Tile";
 
-describe("Sprite", () => {
+describe("Tile", () => {
   const renderEngine = new RenderEngine();
-  let map:SpriteMap;
+  let map:TileMap;
 
   renderEngine.renderBixel = jest.fn();
 
@@ -28,7 +28,7 @@ describe("Sprite", () => {
 
   describe("constructor()", () => {
     it("instantiates with correct defaults", () => {
-      const sprite = new Sprite();
+      const sprite = new Tile();
       expect(sprite.flipX).toBe(false);
       expect(sprite.flipY).toBe(false);
       expect(sprite.map).toEqual([]);
@@ -38,7 +38,7 @@ describe("Sprite", () => {
 
   describe("render()", () => {
     it("renders the map correctly", () => {
-      const sprite:Sprite = new Sprite({ map });
+      const sprite:Tile = new Tile({ map });
       let index:number = 0;
       sprite.render(renderEngine);
       expect(renderEngine.renderBixel).toHaveBeenCalledTimes(9);
@@ -55,7 +55,7 @@ describe("Sprite", () => {
 
   describe("flipX", () => {
     it("reverses rows if the new value is not equal to the old value", () => {
-      const sprite = new Sprite({ map });
+      const sprite = new Tile({ map });
       sprite.flipX = true;
       expect(sprite.map).toEqual([
         [c, b, a],
@@ -64,7 +64,7 @@ describe("Sprite", () => {
       ]);
     });
     it("doesn not reverse rows if the new value is equal to the old value", () => {
-      const sprite = new Sprite({ map });
+      const sprite = new Tile({ map });
       sprite.flipX = false;
       expect(sprite.map).toEqual([
         [a, b, c],
@@ -76,7 +76,7 @@ describe("Sprite", () => {
 
   describe("flipY", () => {
     it("reverses columns if the new value is not equal to the old value", () => {
-      const sprite = new Sprite({ map });
+      const sprite = new Tile({ map });
       sprite.flipY = true;
       expect(sprite.map).toEqual([
         [g, h, i],
@@ -85,7 +85,7 @@ describe("Sprite", () => {
       ]);
     });
     it("doesn not reverse columns if the new value is equal to the old value", () => {
-      const sprite = new Sprite({ map });
+      const sprite = new Tile({ map });
       sprite.flipY = false;
       expect(sprite.map).toEqual([
         [a, b, c],
@@ -97,7 +97,7 @@ describe("Sprite", () => {
 
   describe("rotation", () => {
     it("resets the array to 0 degrees", () => {
-      const sprite = new Sprite({ map });
+      const sprite = new Tile({ map });
       sprite.rotation = 90;
       sprite.rotation = 0;
       expect(sprite.map).toEqual([
@@ -107,7 +107,7 @@ describe("Sprite", () => {
       ]);
     });
     it("rotates the array 90 degrees clock-wise", () => {
-      const sprite = new Sprite({ map });
+      const sprite = new Tile({ map });
       sprite.rotation = 90;
       expect(sprite.map).toEqual([
         [g, d, a],
@@ -116,7 +116,7 @@ describe("Sprite", () => {
       ]);
     });
     it("rotates the array 180 degrees clock-wise", () => {
-      const sprite = new Sprite({ map });
+      const sprite = new Tile({ map });
       sprite.rotation = 180;
       expect(sprite.map).toEqual([
         [i, h, g],
@@ -125,7 +125,7 @@ describe("Sprite", () => {
       ]);
     });
     it("rotates the array 270 degrees clock-wise", () => {
-      const sprite = new Sprite({ map });
+      const sprite = new Tile({ map });
       sprite.rotation = 270;
       expect(sprite.map).toEqual([
         [c, f, i],
@@ -134,7 +134,7 @@ describe("Sprite", () => {
       ]);
     });
     it("rotates the array 90 degrees clock-wise and keeps flipX", () => {
-      const sprite = new Sprite({ map });
+      const sprite = new Tile({ map });
       sprite.flipX = true;
       sprite.rotation = 90;
       expect(sprite.map).toEqual([
@@ -144,7 +144,7 @@ describe("Sprite", () => {
       ]);
     });
     it("rotates the array 90 degrees clock-wise and keeps flipY", () => {
-      const sprite = new Sprite({ map });
+      const sprite = new Tile({ map });
       sprite.flipY = true;
       sprite.rotation = 90;
       expect(sprite.map).toEqual([
