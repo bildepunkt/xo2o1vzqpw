@@ -2,17 +2,22 @@
   "name": "xo2o1vzqpw",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
-    "test": "./node_modules/jest/bin/jest.js",
-    "tsc": "./node_modules/typescript/bin/tsc"
+    "demo:serve": "./node_modules//http-server/bin/http-server ./demo",
+    "demo:watch": "./node_modules/webpack-cli/bin/cli.js --watch",
+    "scaffold": "node ./demo/scaffoldDemo.js",
+    "test": "./node_modules/jest/bin/jest.js"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@types/jest": "^24.0.6",
+    "http-server": "^0.11.1",
     "jest": "^24.1.0",
     "ts-jest": "^24.0.0",
-    "typescript": "^3.3.3"
+    "ts-loader": "^5.3.3",
+    "typescript": "^3.3.3",
+    "webpack": "^4.29.6",
+    "webpack-cli": "^3.2.3"
   }
 }
