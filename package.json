@@ -6,7 +6,7 @@
     "demo:serve": "./node_modules//http-server/bin/http-server ./demo",
     "demo:watch": "./node_modules/webpack-cli/bin/cli.js --watch",
     "scaffold": "node ./demo/scaffoldDemo.js",
-    "test": "./node_modules/jest/bin/jest.js"
+    "test": "./node_modules/jest/bin/jest.js --verbose"
   },
   "author": "",
   "license": "ISC",

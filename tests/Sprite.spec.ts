@@ -1,18 +1,22 @@
-import Sprite, { SpriteMap } from "../src/Sprite";
 import Colour from "../src/Colour";
+import RenderEngine from "./__mocks__/RenderEngine";
+import Sprite, { SpriteMap } from "../src/Sprite";
 
 describe("Sprite", () => {
+  const renderEngine = new RenderEngine();
   let map:SpriteMap;
 
-  const a = new Colour(1, 1, 1);
-  const b = new Colour(2, 2, 2);
-  const c = new Colour(3, 3, 3);
-  const d = new Colour(4, 4, 4);
-  const e = new Colour(5, 5, 5);
-  const f = new Colour(6, 6, 6);
-  const g = new Colour(7, 7, 7);
-  const h = new Colour(8, 8, 8);
-  const i = new Colour(9, 9, 9);
+  renderEngine.renderBixel = jest.fn();
+
+  const a = new Colour();
+  const b = new Colour(1, 1, 1);
+  const c = new Colour(2, 2, 2);
+  const d = new Colour(3, 3, 3);
+  const e = new Colour(4, 4, 4);
+  const f = new Colour(5, 5, 5);
+  const g = new Colour(6, 6, 6);
+  const h = new Colour(7, 7, 7);
+  const i = new Colour(8, 8, 8);
 
   beforeEach(() => {
     map = [
@@ -29,6 +33,23 @@ describe("Sprite", () => {
       expect(sprite.flipY).toBe(false);
       expect(sprite.map).toEqual([]);
       expect(sprite.rotation).toEqual(0);
+    });
+  });
+
+  describe("render()", () => {
+    it("renders the map correctly", () => {
+      const sprite:Sprite = new Sprite({ map });
+      let index:number = 0;
+      sprite.render(renderEngine);
+      expect(renderEngine.renderBixel).toHaveBeenCalledTimes(9);
+      for (let y = 0; y < map.length; y++) {
+        for (let x = 0; x < map[y].length; x++) {
+          expect(renderEngine.renderBixel).toHaveBeenNthCalledWith(
+            index + 1, x, y, `rgba(${index}, ${index}, ${index}, 1)`
+          );
+          index += 1;
+        }
+      }
     });
   });
 
