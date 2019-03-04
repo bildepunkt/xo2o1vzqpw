@@ -1,29 +1,28 @@
-import Sprite from "../../src/Sprite";
+import Tile from "../../src/Tile";
 import Colour from "../../src/Colour";
+import RenderEngine from "../../src/RenderEngine";
+import DOM from "../../src/DOM";
+import Config from "../../src/Config";
 
-export const renderBixel = (context:CanvasRenderingContext2D, x:number, y:number, colourValue:string, bpp:number):void => {
-  context.fillStyle = colourValue;
-  context.fillRect(Math.floor(x * bpp), Math.floor(y * bpp), bpp, bpp);
-}
-
-export const renderSprite = (sprite:Sprite, context:CanvasRenderingContext2D):void => {
-  for (let y = 0; y < sprite.map.length; y++) {
-    for (let x = 0; x < sprite.map[y].length; x++) {
-      renderBixel(context, x, y, sprite.map[y][x].value, 16);
-    }
+const canvas:HTMLCanvasElement = document.querySelector("canvas");
+const config:Config = {
+  bpp: 16,
+  resolution: {
+    width: 256,
+    height: 240
   }
 };
-
-const r = new Colour(255, 0, 0);
-const g = new Colour(0, 255, 0);
-const b = new Colour(0, 0, 255);
-const canvas:HTMLCanvasElement = document.querySelector("canvas");
-const context:CanvasRenderingContext2D = canvas.getContext("2d");
-
-renderSprite(new Sprite({
+const dom:DOM = new DOM(canvas, config);
+const renderEngine:RenderEngine = new RenderEngine(config, dom);
+const r:Colour = new Colour(255, 0, 0);
+const g:Colour = new Colour(0, 255, 0);
+const b:Colour = new Colour(0, 0, 255);
+const tile:Tile = new Tile({
   map: [
     [r, g, b],
     [b, r, g],
     [g, b, r]
   ]
-}), context);
+});
+
+tile.render(renderEngine);
