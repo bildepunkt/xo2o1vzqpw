@@ -1,4 +1,5 @@
-import { Colour } from "./Color";
+import Colour from "./Colour";
+import RenderEngine from "./RenderEngine";
 
 export type SpriteMap = Array<Colour[]>;
 export type SpriteRotation = 0 | 90 | 180 | 270;
@@ -18,7 +19,7 @@ export interface SpritePrivates {
   rotation:SpriteRotation;
 }
 
-export class Sprite {
+export default class Sprite {
   private static defaults:SpritePrivates = {
     flipX: false,
     flipY: false,
@@ -39,6 +40,14 @@ export class Sprite {
 
   public cloneMapOriginal ():SpriteMap {
     return this.privates.mapOriginal.map((row:Colour[]) => row.map(index => index));
+  }
+
+  public render (renderEngine:RenderEngine):void {
+    for (let y = 0; y < this.map.length; y++) {
+      for (let x = 0; x < this.map[y].length; x++) {
+        renderEngine.renderBixel(x, y, this.map[y][x].value);
+      }
+    }
   }
 
   public get map ():SpriteMap {
