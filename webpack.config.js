@@ -2,7 +2,7 @@ const path = require("path");
 
 module.exports = {
   entry: {
-    general: "./demo/general/index.ts"
+    tile: "./demo/tile/index.ts"
   },
   devtool: "inline-source-map",
   mode: "development",

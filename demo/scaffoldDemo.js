@@ -9,13 +9,18 @@ function getHtml (demoName) {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>${demoName.charAt(0).toUpperCase() + demoName.slice(1)} | ConsoleX</title>
+  <link rel="stylesheet" href="../src/prism.css">
+  <title>${demoName.charAt(0).toUpperCase() + demoName.slice(1)} Demo | ConsoleX</title>
 </head>
 <body>
   <a href="../">Back</a>
   <br /><br />
   <canvas></canvas>
+  <pre><code class="language-javascript"></code></pre>
   <script src="../bundles/${demoName}.bundle.js"></script>
+  <script src="../src/prism.min.js"></script>
+  <script src="../fetchSource.js"></script>
+  <script>fetchSource("./index.ts");</script>
 </body>
 </html>
 `

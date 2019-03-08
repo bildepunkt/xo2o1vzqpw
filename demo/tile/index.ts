@@ -8,8 +8,8 @@ const canvas:HTMLCanvasElement = document.querySelector("canvas");
 const config:Config = {
   bpp: 16,
   resolution: {
-    width: 256,
-    height: 240
+    width: 3,
+    height: 3
   }
 };
 const dom:DOM = new DOM(canvas, config);
@@ -25,4 +25,4 @@ const tile:Tile = new Tile({
   ]
 });
 
-tile.render(renderEngine);
+tile.render(0, 0, renderEngine);
