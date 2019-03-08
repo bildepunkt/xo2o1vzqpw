@@ -1,8 +1,8 @@
-import Tile from "../../src/Tile";
-import Colour from "../../src/Colour";
-import RenderEngine from "../../src/RenderEngine";
-import DOM from "../../src/DOM";
-import Config from "../../src/Config";
+import Tile from "../../../src/Tile";
+import Colour from "../../../src/Colour";
+import RenderEngine from "../../../src/RenderEngine";
+import DOM from "../../../src/DOM";
+import Config from "../../../src/Config";
 
 const canvas:HTMLCanvasElement = document.querySelector("canvas");
 const config:Config = {

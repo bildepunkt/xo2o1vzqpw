@@ -9,17 +9,17 @@ function getHtml (demoName) {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel="stylesheet" href="../src/prism.css">
+  <link rel="stylesheet" href="../../src/prism.css">
   <title>${demoName.charAt(0).toUpperCase() + demoName.slice(1)} Demo | ConsoleX</title>
 </head>
 <body>
-  <a href="../">Back</a>
+  <a href="../../">Back</a>
   <br /><br />
   <canvas></canvas>
   <pre><code class="language-javascript"></code></pre>
-  <script src="../bundles/${demoName}.bundle.js"></script>
-  <script src="../src/prism.min.js"></script>
-  <script src="../fetchSource.js"></script>
+  <script src="../../bundles/${demoName}.bundle.js"></script>
+  <script src="../../src/prism.min.js"></script>
+  <script src="../../src/fetchSource.js"></script>
   <script>fetchSource("./index.ts");</script>
 </body>
 </html>
@@ -33,8 +33,8 @@ function onDirCreated (error, demoName) {
     return;
   }
 
-  fs.writeFileSync(path.join(__dirname, demoName, "index.html"), getHtml(demoName));
-  fs.writeFileSync(path.join(__dirname, demoName, "index.ts"), (
+  fs.writeFileSync(path.join(__dirname, "pages", demoName, "index.html"), getHtml(demoName));
+  fs.writeFileSync(path.join(__dirname, "pages", demoName, "index.ts"), (
 `// code goes here!
 `
   ));
@@ -49,7 +49,7 @@ function init (demoName) {
     console.warn("⚠️  Please include a demo name! ⚠️");
     return;
   }
-  fs.mkdir(path.join(__dirname, demoName), error => {
+  fs.mkdir(path.join(__dirname, "pages", demoName), error => {
     onDirCreated(error, demoName);
   });
 }

@@ -2,7 +2,8 @@ const path = require("path");
 
 module.exports = {
   entry: {
-    tile: "./demo/tile/index.ts"
+    tile: "./demo/pages/tile/index.ts",
+    sprite: "./demo/pages/sprite/index.ts"
   },
   devtool: "inline-source-map",
   mode: "development",
