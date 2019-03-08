@@ -42,10 +42,10 @@ export default class Tile {
     return this.privates.mapOriginal.map((row:Colour[]) => row.map(index => index));
   }
 
-  public render (renderEngine:IRenderEngine):void {
+  public render (parentX:number, parentY:number, renderEngine:IRenderEngine):void {
     for (let y = 0; y < this.map.length; y++) {
       for (let x = 0; x < this.map[y].length; x++) {
-        renderEngine.renderBixel(x, y, this.map[y][x].value);
+        renderEngine.renderBixel(parentX + x, parentY + y, this.map[y][x].value);
       }
     }
   }

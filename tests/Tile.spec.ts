@@ -40,7 +40,7 @@ describe("Tile", () => {
     it("renders the map correctly", () => {
       const sprite:Tile = new Tile({ map });
       let index:number = 0;
-      sprite.render(renderEngine);
+      sprite.render(0, 0, renderEngine);
       expect(renderEngine.renderBixel).toHaveBeenCalledTimes(9);
       for (let y = 0; y < map.length; y++) {
         for (let x = 0; x < map[y].length; x++) {
