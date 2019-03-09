@@ -1,20 +1,17 @@
-import MetaTile from "./MetaTile";
+import IRenderable from "./IRenderable";
 import { IRenderEngine } from "./RenderEngine";
-import Tile from "./Tile";
 
 export interface SpriteOpts {
-  metaTile?:MetaTile;
   opacity?:number;
-  tile?:Tile;
+  renderable?:IRenderable;
   x?:number;
   y?:number;
 }
 
 export interface SpritePrivates {
   id:number;
-  metaTile:MetaTile;
   opacity:number;
-  tile:Tile;
+  renderable:IRenderable;
   x:number;
   y:number;
 }
@@ -23,9 +20,8 @@ export default class Sprite {
   private static idCounter:number = 0;
   private static defaults:SpritePrivates = {
     id: null,
-    metaTile: null,
     opacity: 1,
-    tile: null,
+    renderable: null,
     x: 0,
     y: 0
   };
@@ -37,12 +33,7 @@ export default class Sprite {
   }
 
   public render (renderEngine:IRenderEngine):void {
-    if (this.privates.metaTile) {
-      this.privates.metaTile.render(this.privates.x, this.privates.y, renderEngine);
-    }
-    if (this.privates.tile) {
-      this.privates.tile.render(this.privates.x, this.privates.y, renderEngine);
-    }
+    this.privates.renderable.render(this.privates.x, this.privates.y, renderEngine);
   }
 
   public get id ():number {
