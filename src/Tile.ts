@@ -1,4 +1,5 @@
 import Colour from "./Colour";
+import IRenderable from "./IRenderable";
 import { IRenderEngine } from "./RenderEngine";
 
 export type TileMap = Array<Colour[]>;
@@ -19,7 +20,7 @@ export interface TilePrivates {
   rotation:TileRotation;
 }
 
-export default class Tile {
+export default class Tile implements IRenderable {
   private static defaults:TilePrivates = {
     flipX: false,
     flipY: false,
