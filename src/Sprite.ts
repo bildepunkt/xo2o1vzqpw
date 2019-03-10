@@ -39,4 +39,20 @@ export default class Sprite {
   public get id ():number {
     return this.privates.id;
   }
+
+  public get x ():number {
+    return this.privates.x;
+  }
+
+  public get y ():number {
+    return this.privates.y;
+  }
+
+  public set x (value:number) {
+    this.privates.x = value;
+  }
+
+  public set y (value:number) {
+    this.privates.y = value;
+  }
 }
