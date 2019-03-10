@@ -1,5 +1,5 @@
 import Colour from "./Colour";
-import { Point } from "./Geometry";
+import { Point, Rectangle } from "./Geometry";
 import IRenderable from "./IRenderable";
 import { IRenderEngine } from "./RenderEngine";
 
@@ -34,6 +34,10 @@ export default class Text implements IRenderable {
   }
 
   public render (parentX:number, parentY:number, renderEngine:IRenderEngine):void {
-    //
+    // TODO implement
+  }
+
+  public get boundingBox ():Rectangle {
+    return new Rectangle(); // TODO implement
   }
 }

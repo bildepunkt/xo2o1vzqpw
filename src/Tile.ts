@@ -1,4 +1,5 @@
 import Colour from "./Colour";
+import { Rectangle } from "./Geometry";
 import IRenderable from "./IRenderable";
 import { IRenderEngine } from "./RenderEngine";
 
@@ -49,6 +50,10 @@ export default class Tile implements IRenderable {
         renderEngine.renderBixel(parentX + x, parentY + y, this.map[y][x].value);
       }
     }
+  }
+
+  public get boundingBox ():Rectangle {
+    return new Rectangle(0, 0, this.map[0].length, this.map.length);
   }
 
   public get map ():TileMap {

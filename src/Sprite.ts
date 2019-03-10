@@ -1,5 +1,6 @@
 import IRenderable from "./IRenderable";
 import { IRenderEngine } from "./RenderEngine";
+import { Rectangle } from "./Geometry";
 
 export interface SpriteOpts {
   opacity?:number;
@@ -34,6 +35,12 @@ export default class Sprite {
 
   public render (renderEngine:IRenderEngine):void {
     this.privates.renderable.render(this.privates.x, this.privates.y, renderEngine);
+  }
+
+  public get boundingBox ():Rectangle {
+    const { renderable, x, y } = this.privates;
+    const renderableBB:Rectangle = renderable ? renderable.boundingBox : new Rectangle();
+    return new Rectangle(x, y, renderableBB.width, renderableBB.height);
   }
 
   public get id ():number {
