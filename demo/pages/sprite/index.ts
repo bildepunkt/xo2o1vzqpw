@@ -19,9 +19,9 @@ const r:Colour = new Colour(255, 0, 0);
 const g:Colour = new Colour(0, 255, 0);
 const b:Colour = new Colour(0, 0, 255);
 
-const game = {
-  movingRight: true,
-  speed: 0.1,
+const player = {
+  isMovingRight: true,
+  speed: 0.2,
   sprite: new Sprite({
     renderable: new Tile({
       map: [
@@ -32,11 +32,28 @@ const game = {
     })
   })
 };
+
 const render = ():void => {
-  game.sprite.x = game.movingRight ? game.sprite.x + game.speed : game.sprite.x - game.speed;
+  let spriteBB = player.sprite.boundingBox;
+  if (player.isMovingRight && spriteBB.x + spriteBB.width >= config.resolution.width) {
+    player.isMovingRight = false;
+  } else if (!player.isMovingRight && spriteBB.x <= 0) {
+    player.isMovingRight = true;
+  }
+ 
+  player.sprite.x = player.isMovingRight
+    ? player.sprite.x + player.speed
+    : player.sprite.x - player.speed;
+
+  spriteBB = player.sprite.boundingBox;
+  if (spriteBB.x + spriteBB.width > config.resolution.width) {
+    player.sprite.x = config.resolution.width - spriteBB.width;
+  } else if (spriteBB.x < 0) {
+    player.sprite.x = 0;
+  }
 
   renderEngine.clear();
-  game.sprite.render(renderEngine);
+  player.sprite.render(renderEngine);
   requestAnimationFrame(render);
 }
 
