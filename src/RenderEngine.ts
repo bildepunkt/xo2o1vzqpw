@@ -1,5 +1,6 @@
 import Config from "./Config";
 import DOM from "./DOM";
+import Colour from "./Colour";
 
 export interface IRenderEngine {
   renderBixel:(x:number, y:number, colourValue:string) => void;
@@ -14,15 +15,22 @@ export default class RenderEngine implements IRenderEngine {
     this.dom = dom;
   }
 
-  public clear ():void {
+  public clear (fill?:Colour):void {
     const { bpp, resolution } = this.config;
-    this.dom.context.clearRect(0, 0, resolution.width * bpp, resolution.height * bpp);
+    const { context } = this.dom;
+    context.clearRect(0, 0, resolution.width * bpp, resolution.height * bpp);
+
+    if (fill) {
+      context.fillStyle = fill.value;
+      context.fillRect(0, 0, resolution.width * bpp, resolution.height * bpp);
+    }
   }
 
   public renderBixel (x:number, y:number, colourValue:string):void {
     const { bpp } = this.config;
-    this.dom.context.fillStyle = colourValue;
-    this.dom.context.fillRect(
+    const { context } = this.dom;
+    context.fillStyle = colourValue;
+    context.fillRect(
       Math.floor(x) * bpp,
       Math.floor(y) * bpp,
       bpp,

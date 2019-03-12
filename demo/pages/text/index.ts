@@ -1,6 +1,25 @@
+import Colour from "../../../src/Colour";
+import Config from "../../../src/Config";
+import DOM from "../../../src/DOM";
 import Font, { Character } from "../../../src/Font";
+import RenderEngine from "../../../src/RenderEngine";
+import Text from "../../../src/Text";
 
-const characters:{[key:string]:Character} = {
+const canvas:HTMLCanvasElement = document.querySelector("canvas");
+const config:Config = {
+  bpp: 2,
+  resolution: {
+    width: 512,
+    height: 256
+  }
+};
+const dom:DOM = new DOM(canvas, config);
+const renderEngine:RenderEngine = new RenderEngine(config, dom);
+const black:Colour = new Colour();
+const red:Colour = new Colour(255);
+const green:Colour = new Colour(0, 255);
+const blue:Colour = new Colour(0, 0, 255);
+const font:Font = new Font({
   " ": new Character([
     [0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0],
@@ -289,7 +308,35 @@ const characters:{[key:string]:Character} = {
     [1, 1, 1, 0, 0, 0, 0],
     [1, 1, 1, 1, 1, 1, 1]
   ])
-};
-const fonts:{[name:string]:Font} = {
-  nes: new Font(characters, 7)
-};
+}, 7);
+
+const defaultText:Text = new Text({
+  colour: black,
+  font,
+  value: "THIS TEXT IS BLACK AND HAS THE DEFAULT FORMATTING."
+});
+const wrappedText:Text = new Text({
+  colour: red,
+  font,
+  value: "THIS TEXT IS RED AND WRAPS AT NINETY SIX BIXELS.",
+  widthMax: 96
+});
+const spacedText:Text = new Text({
+  colour: green,
+  font,
+  value: "THIS TEXT IS GREEN AND HAS FOUR BIXEL SPACING BETWEEN CHARACTERS AND LINES.",
+  widthMax: 256,
+  spacing: { x: 4, y: 4 }
+});
+const rightJustifiedText:Text = new Text({
+  colour: blue,
+  font,
+  justify: "RIGHT",
+  value: "THIS TEXT IS BLUE AND RIGHT JUSTIFIED"
+});
+
+defaultText.render(0, 0, renderEngine);
+wrappedText.render(0, 16, renderEngine);
+spacedText.render(0, 56, renderEngine);
+rightJustifiedText.render(0, 96, renderEngine);
+

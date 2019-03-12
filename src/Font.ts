@@ -8,6 +8,10 @@ export class Character {
     this.offsetX = offsetX;
     this.offsetY = offsetY;
   }
+
+  public get width ():number {
+    return this.map[0].length;
+  }
 }
 
 export default class Font {
