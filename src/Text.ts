@@ -6,6 +6,16 @@ import { IRenderEngine } from "./RenderEngine";
 
 export type Justify = "LEFT" | "RIGHT" | "CENTER";
 
+export class Line {
+  public characters:Character[];
+  public width:number;
+
+  constructor (characters:Character[]=[], width:number=0) {
+    this.characters = characters;
+    this.width = width;
+  }
+}
+
 export interface TextOpts {
   colour?:Colour;
   font?:Font;
@@ -32,39 +42,51 @@ export default class Text implements IRenderable {
     spacing: new Point(1, 1),
     value: "",
     widthMax: null
-  }
+  };
   private privates:TextPrivates;
 
   constructor (opts:TextOpts = {}) {
     this.privates = Object.assign({}, Text.defaults, opts);
   }
 
-  private getLines (words:string[]):Array<Character[]> {
-    const lines:Array<Character[]> = [];
-    let line:Character[] = [];
-    let lineWidth = 0;
+  private getLines (words:string[]):Line[] {
+    const lines:Line[] = [];
+    let line:Line = new Line();
     for (const word of words) {
       for (const stringChar of word) {
         const char:Character = this.font.characters[stringChar];
-        line.push(char);
-        lineWidth += char.width + char.offsetX + this.spacing.x;
+        line.characters.push(char);
+        line.width += char.width + char.offsetX + this.spacing.x;
       }
-      if (this.widthMax && lineWidth > this.widthMax) {
-        const lastWord:Character[] = line.splice(line.length - word.length, word.length);
+      if (this.widthMax && line.width > this.widthMax) {
+        const lastWord:Character[] = line.characters.splice(line.characters.length - word.length, word.length);
         lines.push(line);
-        line = lastWord;
-        lineWidth = 0;
-        lastWord.forEach((char:Character) => lineWidth += char.width + char.offsetX + this.spacing.x);
+        line = new Line(lastWord);
+        lastWord.forEach((char:Character) => line.width += char.width + char.offsetX + this.spacing.x);
       }
-      line.push(this.font.characters[" "]);
+      const spaceChar:Character = this.font.characters[" "];
+      line.characters.push(spaceChar);
+      line.width += spaceChar.width + spaceChar.offsetX + this.spacing.x;
     }
+    const spaceChar:Character = line.characters.pop();
+    line.width -= spaceChar.width + spaceChar.offsetX + this.spacing.x;
     lines.push(line);
     return lines;
   }
 
-  private renderLine (lineX:number, lineY:number, line:Character[], renderEngine:IRenderEngine):void {
-    let charX = 0;
-    for (const char of line) {
+  private renderLine (lineX:number, lineY:number, line:Line, renderEngine:IRenderEngine):void {
+    let charX:number = 0;
+
+    switch (this.privates.justify) {
+      case "RIGHT":
+        lineX -= line.width;
+        break;
+      case "CENTER":
+        lineX -= line.width / 2;
+        break;
+    }
+
+    for (const char of line.characters) {
       for (let y = 0; y < char.map.length; y++) {
         for (let x = 0; x < char.map[y].length; x++) {
           if (char.map[y][x]) {
@@ -77,7 +99,7 @@ export default class Text implements IRenderable {
   }
 
   public render (parentX:number, parentY:number, renderEngine:IRenderEngine):void {
-    const lines:Array<Character[]> = this.getLines(this.privates.value.split(" "));
+    const lines:Line[] = this.getLines(this.privates.value.split(" "));
     let lineY:number = 0;
     for (const line of lines) {
       this.renderLine(parentX, parentY + lineY, line, renderEngine);
@@ -95,6 +117,10 @@ export default class Text implements IRenderable {
 
   public get font ():Font {
     return this.privates.font;
+  }
+
+  public get justify ():Justify {
+    return this.privates.justify;
   }
 
   public get spacing ():Point {
@@ -115,6 +141,10 @@ export default class Text implements IRenderable {
 
   public set font (value:Font) {
     this.privates.font = value;
+  }
+
+  public set justify (value:Justify) {
+    this.privates.justify = value;
   }
 
   public set spacing (value:Point) {

@@ -2,6 +2,7 @@ import Colour from "../../../src/Colour";
 import Config from "../../../src/Config";
 import DOM from "../../../src/DOM";
 import Font, { Character } from "../../../src/Font";
+import { Point } from "../../../src/Geometry";
 import RenderEngine from "../../../src/RenderEngine";
 import Text from "../../../src/Text";
 
@@ -324,9 +325,9 @@ const wrappedText:Text = new Text({
 const spacedText:Text = new Text({
   colour: green,
   font,
+  spacing: new Point(4, 4),
   value: "THIS TEXT IS GREEN AND HAS FOUR BIXEL SPACING BETWEEN CHARACTERS AND LINES.",
-  widthMax: 256,
-  spacing: { x: 4, y: 4 }
+  widthMax: 256
 });
 const rightJustifiedText:Text = new Text({
   colour: blue,
@@ -334,9 +335,18 @@ const rightJustifiedText:Text = new Text({
   justify: "RIGHT",
   value: "THIS TEXT IS BLUE AND RIGHT JUSTIFIED"
 });
+const centerJustifiedText:Text = new Text({
+  colour: black,
+  font,
+  spacing: new Point(1, 4),
+  justify: "CENTER",
+  value: "THIS TEXT IS BLACK, AND IT WRAPS, AND IT IS ALSO CENTER JUSTIFIED. IT IS ALSO LONG.",
+  widthMax: 256,
+});
 
 defaultText.render(0, 0, renderEngine);
 wrappedText.render(0, 16, renderEngine);
-spacedText.render(0, 56, renderEngine);
-rightJustifiedText.render(0, 96, renderEngine);
+spacedText.render(0, 64, renderEngine);
+rightJustifiedText.render(512, 112, renderEngine);
+centerJustifiedText.render(256, 128, renderEngine);
 
